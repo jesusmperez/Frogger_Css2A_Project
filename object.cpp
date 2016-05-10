@@ -1,55 +1,51 @@
-#include"object.h"
-#include<iostream>
-#include<string>
+//
+//  objects.cpp
+//  Frogger
+//
+//  Created by Kristine Laranjo on 4/29/16.
+//  Copyright © 2016 Kristine Laranjo. All rights reserved.
+//
+
+#include "object.h"
 using namespace std;
 
-
-
-Object::Object()
+Object::Object(double posX, double posY, double speed)
 {
-		
-	objTexture.loadFromFile("spritesheet.png");
-	right = true;
-	left = false;
-	spriteName = "car";
-	posX = 0;
-    posY = 0;
-	speed = 1;
-	rectSprite.left = 0;
-	rectSprite.top = 0;
-	rectSprite.width = 75;
-	rectSprite.height = 150;
-
-
-	obj.setTexture(objTexture, true);
-	obj.setTextureRect(rectSprite);
-	
-
-	
+	this->speed = speed;
+	this->posX = posX;
+	this->posY = posY;
 }
-
-//Object(string objName, int posX, int posY, double speed, bool right, bool left);
-
-void Object::setRight(bool right)
+void Object::moveRight(sf::Sprite &obj)
 {
-	this->right = right;
-	
+	sf::Vector2f position = obj.getPosition();
+	if (position.x >= 799)
+	{
+		setPosX(-150);
+		setPosY(position.y);
+		obj.setPosition(posX, posY);
+		obj.move(speed, 0);
+	}
+	else
+		obj.move(speed, 0);
 }
-void Object::setLeft(bool left)
+void Object::moveLeft(sf::Sprite &obj)
 {
-	this->left = left;
-	
+	sf::Vector2f position = obj.getPosition();
+	if (position.x <= -170)
+	{
+		setPosX(799);
+		setPosY(position.y);
+		obj.setPosition(posX, posY);
+		obj.move(-speed, 0);
+	}
+	else
+		obj.move(-speed, 0);
 }
-void Object::setSpriteName(string spriteName)
-{
-	this->spriteName = spriteName;
-		
-}
-void Object::setPosX(int posX)
+void Object::setPosX(double posX)
 {
 	this->posX = posX;
 }
-void Object::setPosY(int posY)
+void Object::setPosY(double posY)
 {
 	this->posY = posY;
 }
@@ -57,5 +53,3 @@ void Object::setSpeed(double speed)
 {
 	this->speed = speed;
 }
-
-
