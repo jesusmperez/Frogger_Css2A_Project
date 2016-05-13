@@ -32,6 +32,7 @@ private:
 	float posy;
 
 	//sf::RectangleShape Rectangle;
+	sf::Sprite river;
 	sf::Sprite frogger;
 	sf::Texture texture1;
 	sf::Texture texture2;
@@ -58,6 +59,14 @@ private:
 	bool isOnLog3;
 	bool isOnLog4;
 	bool isOnLog5;
+
+	//lilypad booleans
+	bool isOnLily;
+	bool isOnLily2;
+	bool isOnLily3;
+	bool isOnLily4;
+	bool isOnLily5;
+
 	
 
 
@@ -106,7 +115,15 @@ screen_1::screen_1(void)
 	isOnLog3 = false;
 	isOnLog4 = false;
 	isOnLog5 = false;
+
+
+	isOnLily = false;
+	isOnLily2 = false;
+	isOnLily3 = false;
+	isOnLily4 = false;
+	isOnLily5 = false;
 }
+
 
 int screen_1::Run(sf::RenderWindow &App)
 {
@@ -132,11 +149,11 @@ int screen_1::Run(sf::RenderWindow &App)
 	{
 		
 		// Creating the objects
-		Object t1(130, 420, 0.5);
-		Object t2(550, 290, 0.3);
-		Object c1(-50, 420, 0.5);
-		Object c2(280, 289, 0.3);
-		Object c3(0, 289, 0.3);
+		Object t1(130, 420,0.2 );
+		Object t2(550, 290, 0.2);
+		Object c1(-50, 420, 0.3);
+		Object c2(280, 289, 0.2);
+		Object c3(0, 289, 0.2);
 		Object sl1(0, 125, 0.2);
 		Object sl2(200, 61, 0.3);
 		Object sl3(300, 8, 0.4);
@@ -168,6 +185,18 @@ int screen_1::Run(sf::RenderWindow &App)
 
 		sf::RectangleShape rect10;
 		sf::RectangleShape rect11;
+		//Positioning of the river
+		sf::RectangleShape rect12;
+
+		//positioning the lilypads
+		sf::RectangleShape rect13;
+		sf::RectangleShape rect14;
+		sf::RectangleShape rect15;
+		sf::RectangleShape rect16;
+		sf::RectangleShape rect17;
+
+
+
 
 
 
@@ -189,6 +218,14 @@ int screen_1::Run(sf::RenderWindow &App)
 
 		sf::Vector2f size10(120, 40);
 		sf::Vector2f size11(120, 40);
+		sf::Vector2f size12(800, 230);
+
+		sf::Vector2f size13(60, 60);
+		sf::Vector2f size14(60, 60);
+		sf::Vector2f size15(60, 60);
+		sf::Vector2f size16(60, 60);
+		sf::Vector2f size17(60, 60);
+
 
 		sf::Color color;
 		sf::Vector2f objectPos = truck.getPosition();
@@ -204,6 +241,47 @@ int screen_1::Run(sf::RenderWindow &App)
 		sf::Vector2f objectPos9 = longLog.getPosition();
 		sf::Vector2f objectPos10 = longLog2.getPosition();
 
+		rect12.setPosition(0, 0);
+		rect12.setSize(size12);
+		rect12.setFillColor(sf::Color::Transparent);
+		rect12.setOutlineColor(sf::Color::Red);
+		rect12.setOutlineThickness(5);
+
+		sf::Vector2f objectPos11 = lillypad.getPosition();
+		sf::Vector2f objectPos12 = lillypad2.getPosition();
+		sf::Vector2f objectPos13 = lillypad3.getPosition();
+		sf::Vector2f objectPos14 = lillypad4.getPosition();
+		sf::Vector2f objectPos15 = lillypad5.getPosition();
+
+		rect13.setPosition(objectPos11.x + 40, objectPos11.y+40);
+		rect13.setSize(size13);
+		rect13.setFillColor(sf::Color::Transparent);
+		rect13.setOutlineColor(sf::Color::Red);
+		rect13.setOutlineThickness(5);
+
+		rect14.setPosition(objectPos12.x + 40 , objectPos12.y+40);
+		rect14.setSize(size14);
+		rect14.setFillColor(sf::Color::Transparent);
+		rect14.setOutlineColor(sf::Color::Red);
+		rect14.setOutlineThickness(5);
+
+		rect15.setPosition(objectPos13.x +40, objectPos13.y+40);
+		rect15.setSize(size15);
+		rect15.setFillColor(sf::Color::Transparent);
+		rect15.setOutlineColor(sf::Color::Red);
+		rect15.setOutlineThickness(5);
+
+		rect16.setPosition(objectPos14.x +40 , objectPos14.y+40);
+		rect16.setSize(size16);
+		rect16.setFillColor(sf::Color::Transparent);
+		rect16.setOutlineColor(sf::Color::Red);
+		rect16.setOutlineThickness(5);
+
+		rect17.setPosition(objectPos15.x +40 , objectPos15.y+40);
+		rect17.setSize(size17);
+		rect17.setFillColor(sf::Color::Transparent);
+		rect17.setOutlineColor(sf::Color::Red);
+		rect17.setOutlineThickness(5);
 
 
 
@@ -397,6 +475,62 @@ int screen_1::Run(sf::RenderWindow &App)
 			sum9 = 0;
 			sum10 = 0;
 		}
+		if (rect.getGlobalBounds().intersects(rect13.getGlobalBounds()))
+		{
+			isOnLily = true;
+			
+		}
+		if (rect.getGlobalBounds().intersects(rect14.getGlobalBounds()))
+		{
+			isOnLily = true;
+		}
+		if (rect.getGlobalBounds().intersects(rect15.getGlobalBounds()))
+		{
+			isOnLily = true;
+
+		}
+		if (rect.getGlobalBounds().intersects(rect16.getGlobalBounds()))
+		{
+			isOnLily = true;
+		}
+		if (rect.getGlobalBounds().intersects(rect17.getGlobalBounds()))
+		{
+			isOnLily = true;
+		}
+		sf::Vector2f location = frogger.getPosition();
+		
+		
+		if (rect.getGlobalBounds().intersects(rect12.getGlobalBounds()))
+		{
+			if ((isOnLog || isOnLog2 || isOnLog3 || isOnLog4 || isOnLog5) && (location.x >= 740 || location.x < 0))
+			{
+				//cout <<" frogger went out of bounds " << endl;
+				isHit = true;
+				numLives--;
+
+			}
+		}
+		
+
+		if (rect.getGlobalBounds().intersects(rect12.getGlobalBounds()))
+		{
+			if (isOnLog || isOnLog2 || isOnLog3 || isOnLog4 || isOnLog5)
+			{
+				//cout << " this frogger is on the logs not the water" << endl;
+			}
+			else if (isOnLily || isOnLily2 || isOnLily3 || isOnLily4 || isOnLily5)
+			{
+				cout << " the frog has landed on the lilly pad" << endl;
+				isHit = true;
+			}
+			
+			else
+			{
+				isHit = true;
+				numLives--;
+			}
+			
+		} 
 
 		
 		while (App.pollEvent(Event))
@@ -414,27 +548,27 @@ int screen_1::Run(sf::RenderWindow &App)
 
 				if (isOnLog)
 				{
-					sum2 = (sum2 + (10 * -1));
+					sum2 = (sum2 + (20 * -1));
 					//isOnLog = false;
 				}
 				if (isOnLog2)
 				{
-					sum4 = (sum4 + (10 * -1));
+					sum4 = (sum4 + (20 * -1));
 					//isOnLog2 = false;
 				}
 				if (isOnLog3)
 				{
-					sum6 = (sum6 + (10 * -1));
+					sum6 = (sum6 + (20 * -1));
 					//isOnLog3 = false;
 				}
 				if (isOnLog4)
 				{
-					sum8 = (sum8 + (10 * -1));
+					sum8 = (sum8 + (20 * -1));
 					//isOnLog4 = false;
 				}
 				if (isOnLog5)
 				{
-					sum10 = (sum10 + (10 * -1));
+					sum10 = (sum10 + (20 * -1));
 					//isOnLog5 = false;
 				}
 
@@ -456,7 +590,7 @@ int screen_1::Run(sf::RenderWindow &App)
 						frogger.setTextureRect(rectSourceSprite);
 					}// end if
 
-					frogger.move(-20, 0);
+					frogger.move(-40, 0);
 
 				}// end else
 			}// end if
@@ -464,27 +598,27 @@ int screen_1::Run(sf::RenderWindow &App)
 			{
 				if (isOnLog)
 				{
-					sum2 = (sum2 + (10));
+					sum2 = (sum2 + (20));
 					//isOnLog = false;
 				}
 				if (isOnLog2)
 				{
-					sum4 = (sum4 + (10));
+					sum4 = (sum4 + (20));
 					//isOnLog2 = false;
 				}
 				if (isOnLog3)
 				{
-					sum6 = (sum6 + (10));
+					sum6 = (sum6 + (20));
 					//isOnLog3 = false;
 				}
 				if (isOnLog4)
 				{
-					sum8 = (sum8 + (10));
+					sum8 = (sum8 + (20));
 					//isOnLog4 = false;
 				}
 				if (isOnLog5)
 				{
-					sum10 = (sum10 + (10));
+					sum10 = (sum10 + (20));
 					//isOnLog5 = false;
 				}
 
@@ -495,9 +629,9 @@ int screen_1::Run(sf::RenderWindow &App)
 				
 				
 
-				if (pos.x >= 740)
+				if (pos.x >= 640)
 				{
-					//cout << " right is working" << endl;
+					cout << " right is working" << endl;
 					frogger.move(0, 0);
 				}// end if
 				
@@ -510,10 +644,10 @@ int screen_1::Run(sf::RenderWindow &App)
 						frogger.setTextureRect(rectSourceSprite);
 					}// end if
 
-					//frogger.move(50, 0);
+					frogger.move(40, 0);
 
 				}// end else
-					frogger.move(20, 0);
+					//frogger.move(50, 0);
 			}// end if
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
@@ -521,28 +655,28 @@ int screen_1::Run(sf::RenderWindow &App)
 
 			if (isOnLog)
 			{
-				sum = (sum + (10 * -1));
+				sum = (sum + (20 * -1));
 				//isOnLog = false;
 			}
 
 			if (isOnLog2)
 			{
-				sum3 = (sum3 + (10 * -1));
+				sum3 = (sum3 + (20 * -1));
 				//isOnLog2 = false;
 			}
 			if (isOnLog3)
 			{
-				sum5 = (sum5 + (10 * -1));
+				sum5 = (sum5 + (20 * -1));
 				//isOnLog3 = false;
 			}
 			if (isOnLog4)
 			{
-				sum7 = (sum7 + (10 * -1));
+				sum7 = (sum7 + (20 * -1));
 				//isOnLog4 = false;
 			}
 			if (isOnLog5)
 			{
-				sum9 = (sum9 + (10 * -1));
+				sum9 = (sum9 + (20 * -1));
 				//isOnLog5 = false;
 			}
 
@@ -562,7 +696,7 @@ int screen_1::Run(sf::RenderWindow &App)
 						frogger.setTextureRect(rectSourceSprite);
 					}// end if
 
-					frogger.move(0, -20);
+					frogger.move(0, -40);
 				}
 			}// end if
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -571,29 +705,29 @@ int screen_1::Run(sf::RenderWindow &App)
 
 				if (isOnLog)
 				{
-					sum = (sum + 10);
+					sum = (sum + 20);
 					//isOnLog = false;
 				}
 
 				if (isOnLog2)
 				{
-					sum3 = (sum3 + 10);
+					sum3 = (sum3 + 20);
 					//isOnLog2 = false;
 				}
 				if (isOnLog3)
 				{
-					sum5 = (sum5 + 10);
+					sum5 = (sum5 + 20);
 					//isOnLog3 = false;
 				}
 
 				if (isOnLog4)
 				{
-					sum7 = (sum7 + 10);
+					sum7 = (sum7 + 20);
 					//isOnLog4 = false;
 				}
 				if (isOnLog5)
 				{
-					sum9 = (sum9 + 10);
+					sum9 = (sum9 + 20);
 					//isOnLog5 = false;
 				}
 
@@ -615,7 +749,7 @@ int screen_1::Run(sf::RenderWindow &App)
 						frogger.setTextureRect(rectSourceSprite);
 					}// end if
 
-					frogger.move(0, 20);
+					frogger.move(0, 40);
 
 				}// end else
 			}// end if
@@ -632,7 +766,11 @@ int screen_1::Run(sf::RenderWindow &App)
 			frogger.setTextureRect(rectSourceSprite);
 			frogger.setPosition(320, 605);
 		}
+		if (numLives < 0)
+		{
+			return 0;
 
+		}
 		App.clear(sf::Color(0, 0, 0, 0));
 
 		//Drawing
@@ -653,7 +791,7 @@ int screen_1::Run(sf::RenderWindow &App)
 		App.draw(lillypad4);
 		App.draw(lillypad5);
 		App.draw(frogger);
-		//App.draw(rect);
+		App.draw(rect);
 		//App.draw(rect2);
 		//App.draw(rect3);
 		//App.draw(rect4);
@@ -664,6 +802,12 @@ int screen_1::Run(sf::RenderWindow &App)
 		//App.draw(rect9);
 		//App.draw(rect10);
 		//App.draw(rect11);
+		//App.draw(rect12);
+		App.draw(rect13);
+		App.draw(rect14);
+		App.draw(rect15);
+		App.draw(rect16);
+		App.draw(rect17);
 		App.display();
 	}
 
